@@ -20,6 +20,7 @@ class CausalSelfAttention(nn.Module):
     # implementation of transformer. Although it is a bit unusual, we empirically
     # observe that it yields better performance.
     self.dropout = nn.Dropout(config.attention_probs_dropout_prob) # 768
+    if hasattr(torch.nn.functional, CausalSelfAttention)
 
   def transform(self, x, linear_layer):
     # The corresponding linear_layer of k, v, q are used to project the hidden_state (x).
@@ -59,10 +60,10 @@ class CausalSelfAttention(nn.Module):
     # First, we have to generate the key, value, query for each token for multi-head attention
     # using self.transform (more details inside the function).
     # Size of *_layer is [bs, num_attention_heads, seq_len, attention_head_size].
+    
     key_layer = self.transform(hidden_states, self.key)
     value_layer = self.transform(hidden_states, self.value)
     query_layer = self.transform(hidden_states, self.query)
     
-    # Calculate the multi-head attention.
     attn_value = self.attention(key_layer, query_layer, value_layer, attention_mask)
     return attn_value
